@@ -1,19 +1,22 @@
 const Discord = require('discord.js-selfbot-v13');
 const client = new Discord.Client();
 
-// Token'ı config.json'dan al (GitHub Actions oluşturacak)
+// Token'ı config.json'dan al
 const config = require('./config.json');
 
 client.on('ready', () => {
     console.log(`✅ ${client.user.tag} şimdi online! 💚`);
-    console.log(`Süre: ${new Date().toLocaleString('tr-TR')}`);
+    console.log(`Zaman: ${new Date().toLocaleString('tr-TR')}`);
     
-    // Durumu ayarla
-    client.user.setStatus('dnd'); // online, idle, dnd, invisible
+    // Durumu ayarla (online, idle, dnd, invisible)
+    client.user.setStatus('dnd');
     
     // Aktivite ayarla
     client.user.setActivity('Spotify', { type: 'LISTENING' });
-    // PLAYING, WATCHING, LISTENING, STREAMING
+    // PLAYING → "Valorant oynuyor"
+    // WATCHING → "Netflix izliyor" 
+    // LISTENING → "Spotify dinliyor"
+    // STREAMING → "Twitch'te yayında"
     
     // Her 30 saniyede durumu koru
     setInterval(() => {
@@ -21,22 +24,28 @@ client.on('ready', () => {
         client.user.setActivity('Spotify', { type: 'LISTENING' });
     }, 30000);
     
-    console.log('Bot çalışıyor... (28 dakika)');
+    console.log('✓ Bot çalışıyor... (6 saat boyunca)');
 });
 
 client.on('error', (error) => {
-    console.error('Hata:', error);
+    console.error('❌ Hata:', error);
 });
 
 // Giriş yap
 client.login(config.token).catch(err => {
-    console.error('Token hatası:', err.message);
+    console.error('❌ Token hatası:', err.message);
     process.exit(1);
 });
 
 // Kapanma sinyallerini yakala
 process.on('SIGTERM', () => {
-    console.log('Bot durduruluyor...');
+    console.log('⏸️ Bot durduruluyor...');
+    client.destroy();
+    process.exit(0);
+});
+
+process.on('SIGINT', () => {
+    console.log('⏸️ Bot durduruluyor...');
     client.destroy();
     process.exit(0);
 });

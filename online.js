@@ -12,7 +12,7 @@ client.on('ready', () => {
     client.user.setStatus('dnd');
     
     // Aktivite ayarla
-    client.user.setActivity('Spotify', { type: 'LISTENING' });
+    client.user.setActivity('SEKS', { type: 'WATCHING' });
     // PLAYING → "Valorant oynuyor"
     // WATCHING → "Netflix izliyor" 
     // LISTENING → "Spotify dinliyor"

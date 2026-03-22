@@ -24,7 +24,7 @@ jobs:
       
     - name: Run bot
       env:
-        TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        TOKEN: ${{ secrets.TOKEN }}
       run: |
         echo '{"token":"'$TOKEN'"}' > config.json
         node online.js

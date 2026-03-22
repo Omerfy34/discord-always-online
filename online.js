@@ -20,7 +20,7 @@ client.on('ready', () => {
     
     // Her 30 saniyede durumu koru
     setInterval(() => {
-        client.user.setStatus('dnd');
+        client.user.setStatus('online');
         client.user.setActivity('Spotify', { type: 'LISTENING' });
     }, 30000);
     

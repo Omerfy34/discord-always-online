@@ -9,7 +9,7 @@ client.on('ready', () => {
     console.log(`Zaman: ${new Date().toLocaleString('tr-TR')}`);
     
     // Durumu ayarla (online, idle, dnd, invisible)
-    client.user.setStatus('dnd');
+    client.user.setStatus('idle');
     
     // Aktivite ayarla
     client.user.setActivity('SEKS', { type: 'WATCHING' });
@@ -20,8 +20,8 @@ client.on('ready', () => {
     
     // Her 30 saniyede durumu koru
     setInterval(() => {
-        client.user.setStatus('dnd');
-        client.user.setActivity('Spotify', { type: 'LISTENING' });
+        client.user.setStatus('idle');
+        client.user.setActivity('SEKS', { type: 'WATCHING' });
     }, 30000);
     
     console.log('✓ Bot çalışıyor... (6 saat boyunca)');

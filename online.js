@@ -12,7 +12,7 @@ client.on('ready', () => {
     client.user.setStatus('dnd');
     
     // 1000 saat öncesinin milisaniye hesabı (1000 saat * 60 dk * 60 sn * 1000 ms)
-    const binSaatOnce = Date.now() - (1000 * 60 * 60 * 1000);
+    const binSaatOnce = Date.now() - (1090 * 60 * 60 * 1000);
     
     const rdr2Activity = new Discord.RichPresence(client)
         .setApplicationId('1498604550649675816') // Logo için Developer Portal'dan aldığınız Uygulama ID'si

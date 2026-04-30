@@ -1,8 +1,15 @@
 const Discord = require('discord.js-selfbot-v13');
 const client = new Discord.Client();
 
-// Token'ı config.json'dan al
-const config = require('./config.json');
+// Token'ı ortam değişkeninden (GitHub), yoksa yerel config.json'dan al
+let token = process.env.DISCORD_TOKEN;
+if (!token) {
+    try { token = require('./config.json').token; } 
+    catch (e) { console.error('Token bulunamadı!'); }
+}
+
+// Discord süresinin ASLA sıfırlanmaması için SABİT bir başlangıç tarihi (1 Ocak 2024)
+const startTime = new Date('2026-01-01T00:00:00').getTime();
 
 client.on('ready', () => {
     console.log(`✅ ${client.user.tag} şimdi online! 💚`);
@@ -11,25 +18,23 @@ client.on('ready', () => {
     // Durumu ayarla (online, idle, dnd, invisible)
     client.user.setStatus('dnd');
     
-    // 1000 saat öncesinin milisaniye hesabı (1000 saat * 60 dk * 60 sn * 1000 ms)
-    const binSaatOnce = Date.now() - (100090 * 60 * 60 * 1000);
-    
-    const rdr2Activity = new Discord.RichPresence(client)
-        .setApplicationId('1498604550649675816') // Logo için Developer Portal'dan aldığınız Uygulama ID'si
+    const vsCodeActivity = new Discord.RichPresence(client)
+        .setApplicationId('1499485718861582578') // VS Code logosu göstermek istersen Developer Portal'dan yeni bir ID alabilirsin
         .setType('PLAYING')
-        .setName('Red Dead Redemption 2')
-        .setStartTimestamp(binSaatOnce);
+        .setName('Visual Studio Code')
+        .setDetails('wowsy bot üzerinde çalışıyor')
+        .setStartTimestamp(startTime);
         // .setAssetsLargeImage('rdr2_logo'); // Portal'a logo yükledikten sonra bu satırın başındaki "//" işaretlerini silip adını girin
     
-    client.user.setActivity(rdr2Activity);
+    client.user.setActivity(vsCodeActivity);
     
     // Her 30 saniyede durumu koru
     setInterval(() => {
         client.user.setStatus('dnd');
-        client.user.setActivity(rdr2Activity);
+        client.user.setActivity(vsCodeActivity);
     }, 30000);
     
-    console.log('✓ Bot çalışıyor... (6 saat boyunca)');
+    console.log('✓ Bot çalışıyor... (7/24 Bulut modu ve Sabit Süre aktif)');
 });
 
 client.on('error', (error) => {
@@ -37,7 +42,7 @@ client.on('error', (error) => {
 });
 
 // Giriş yap
-client.login(config.token).catch(err => {
+client.login(token).catch(err => {
     console.error('❌ Token hatası:', err.message);
     process.exit(1);
 });
